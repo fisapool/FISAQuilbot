@@ -1,18 +1,14 @@
-<h1 align="center">FISAQuilbot Premium</h1>
+<div align="center">
 
-<p align="center">
-  A Chrome extension that enhances your writing experience with advanced paraphrasing features.
-</p>
+# FISAQuilbot Premium
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/fisapool/FISAQuilbot/main/logo.png" alt="FISAQuilbot Logo" width="300">
-</p>
+<img src="logo.png" alt="FISA Logo" width="500">
 
-<p align="center">
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT">
-  </a>
-</p>
+A Chrome extension that enhances your writing experience with advanced paraphrasing features.
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+</div>
 
 ## 📚 Table of Contents
 
@@ -21,14 +17,14 @@
 
 ## ✨ Features
 
-- Unlimited word paraphrasing
-- 7 Writing modes
-- Grammar checker with active voice detection
-- Analysis mode
-- Tone detector
-- 4 Synonym options
-- 6000-word summarizer
-- 15 Sentences processed simultaneously
+• Unlimited word paraphrasing
+• 7 Writing modes
+• Grammar checker with active voice detection
+• Analysis mode
+• Tone detector
+• 4 Synonym options
+• 6000-word summarizer
+• 15 Sentences processed simultaneously
 
 **Note:** This extension does not include plagiarism checking functionality.
 
@@ -36,7 +32,7 @@
 
 ### Prerequisites
 
-- Chrome Browser
+• Chrome Browser
 
 ### Installation
 
@@ -54,3 +50,7 @@
 4. Enjoy the advanced writing capabilities!
 
 **Note:** You must be signed in to your Quillbot account to use the enhanced features.
+
+<div align="center">
+Made with ❤️ by FISA Team
+</div>
