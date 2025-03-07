@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Generated files
+extension/icon*.png
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+.DS_Store

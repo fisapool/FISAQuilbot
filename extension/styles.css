@@ -1,0 +1,23 @@
+/**
+ * FISAQuilbot Premium Styles
+ * Hide specific elements and customize UI
+ */
+
+/* Hide advertisement elements */
+marquee#marqueeAds,
+marquee.__web-inspector-hide-shortcut__ {
+  display: none !important;
+}
+
+/* Hide donation elements */
+img[src*="buymeacoffee.com"],
+img.__web-inspector-hide-shortcut__[alt="Buy Me A Coffee"] {
+  display: none !important;
+}
+
+/* Hide plagiarism checker elements */
+[data-testid="dashboard-product-card-plagiarism-checker-sm-md"],
+.css-hey9bw[href*="plagiarism-checker"],
+a[href*="plagiarism-checker"] {
+  display: none !important;
+} 

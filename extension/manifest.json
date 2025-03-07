@@ -1,0 +1,35 @@
+{
+  "name": "FISAQuilbot Premium",
+  "version": "2.0.0",
+  "description": "Premium lifetime access to enhanced writing features. Transform your writing experience with FISAQuilbot's advanced capabilities.",
+  "manifest_version": 3,
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {},
+  "web_accessible_resources": [{
+    "resources": ["quillbot.js", "inject.js"],
+    "matches": ["https://quillbot.com/*"]
+  }],
+  "content_scripts": [
+    {
+      "js": ["inject.js"],
+      "matches": ["https://quillbot.com/*"],
+      "all_frames": true,
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "css": ["styles.css"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
