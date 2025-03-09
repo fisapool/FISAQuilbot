@@ -2,8 +2,10 @@
 node_modules/
 package-lock.json
 
-# Generated files
-extension/icon*.png
+# Ignore generated icon files except main icon
+extension/icon16.png
+extension/icon48.png
+extension/icon128.png
 
 # IDE/Editor files
 .vscode/

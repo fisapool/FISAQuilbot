@@ -3,14 +3,5 @@
   "version": "2.0.0",
   "private": true,
   "description": "Premium lifetime access to enhanced writing features",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "canvas": "^3.1.0"
-  }
+  "license": "PROPRIETARY"
 }

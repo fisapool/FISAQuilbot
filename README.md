@@ -2,11 +2,11 @@
 
 # FISAQuilbot Premium
 
-<img src="logo.png" alt="FISA Logo" width="500">
+<img src="extension/icon.png" alt="FISA Logo" width="256">
 
 A Chrome extension that enhances your writing experience with advanced paraphrasing features.
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: Proprietary](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
 </div>
 
