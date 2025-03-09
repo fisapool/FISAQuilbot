@@ -51,13 +51,10 @@ A Chrome extension that enhances your writing experience with advanced paraphras
 
 **Note:** You must be signed in to your Quillbot account to use the enhanced features.
 
-<<<<<<< HEAD
 ## GitHub Pages
 
 Visit our extension documentation at: https://fisapool.github.io/FISAQuilbot/
 
-=======
->>>>>>> 833d816c1390b36f46e332281a3aa0db6d111d36
 <div align="center">
 Made with ❤️ by FISA Team
 </div>
