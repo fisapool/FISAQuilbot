@@ -1371,6 +1371,28 @@
             50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5); }
             100% { transform: scale(1); }
         }
+
+        .interface-preview {
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .browser-screenshot {
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 15px 0;
+        }
+
+        .browser-screenshot:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
     </style>
 
     <!-- Add the script here, after the style tag -->
@@ -1545,7 +1567,7 @@
                     <p>1. Toggle "Developer mode" switch in top right<br>
                        2. Click "Load unpacked" button that appears</p>
                     <div class="step-image">
-                        <img src="./icon (6).png" alt="Enable Developer Mode and Load Unpacked">
+                        <img src="./chrome-extensions.png" alt="Enable Developer Mode and Load Unpacked" class="browser-screenshot">
                     </div>
                 </div>
             </div>
@@ -1593,7 +1615,7 @@
                     <h3>Ready to Use</h3>
                     <p>The extension is now installed and ready to enhance your QuillBot experience</p>
                     <div class="step-image">
-                        <img src="./icon (2).png" alt="Extension Successfully Installed">
+                        <img src="./quillbot-premium.png" alt="QuillBot Premium Interface" class="interface-preview">
                     </div>
                     <div class="success-note">
                         <span class="check-icon">✓</span>
