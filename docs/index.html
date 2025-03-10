@@ -1210,15 +1210,16 @@
 
         .site-header h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.8em;
-            font-weight: 700;
+            font-size: 4.2em;
+            font-weight: 800;
             margin: 0;
             background: linear-gradient(45deg, #A78BFA, #C4B5FD);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: none;
-            border: none;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.02em;
+            transform: perspective(1000px) translateZ(0);
         }
 
         .tagline {
@@ -1236,28 +1237,21 @@
         }
 
         .download-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 30px;
-            border-radius: 50px;
-            background: rgba(124, 58, 237, 0.2);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2em;
-            text-decoration: none;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            transform-style: preserve-3d;
+            transform: perspective(1000px) translateZ(0);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                0 8px 15px rgba(124, 58, 237, 0.3);
         }
 
         .download-button:hover {
-            transform: translateY(-3px);
-            background: rgba(124, 58, 237, 0.2);
-            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.2);
-            border-color: rgba(255, 255, 255, 0.2);
+            transform: perspective(1000px) translateZ(20px) translateY(-5px);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.2),
+                0 15px 25px rgba(124, 58, 237, 0.4);
         }
 
         .download-icon {
@@ -1322,6 +1316,60 @@
             color: #fff;
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Update the main title size and style */
+        .site-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.2em;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(45deg, #A78BFA, #C4B5FD);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.02em;
+            transform: perspective(1000px) translateZ(0);
+        }
+
+        /* Enhanced 3D download button */
+        .download-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            transform-style: preserve-3d;
+            transform: perspective(1000px) translateZ(0);
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                0 8px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .download-button:hover {
+            transform: perspective(1000px) translateZ(20px) translateY(-5px);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.2),
+                0 15px 25px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Improve SELECT THIS FOLDER visibility */
+        .select-this {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            animation: pulseHighlight 2s infinite;
+            display: inline-block;
+            margin-left: 12px;
+        }
+
+        @keyframes pulseHighlight {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5); }
+            100% { transform: scale(1); }
         }
     </style>
 
@@ -1497,7 +1545,7 @@
                     <p>1. Toggle "Developer mode" switch in top right<br>
                        2. Click "Load unpacked" button that appears</p>
                     <div class="step-image">
-                        <img src="./icon (6).png" alt="Enable Developer Mode and Load Unpacked">
+                        <img src="./icon.png" alt="Enable Developer Mode and Load Unpacked">
                     </div>
                 </div>
             </div>
@@ -1545,7 +1593,7 @@
                     <h3>Ready to Use</h3>
                     <p>The extension is now installed and ready to enhance your QuillBot experience</p>
                     <div class="step-image">
-                        <img src="./icon (2).png" alt="Extension Successfully Installed">
+                        <img src="./icon.png" alt="Extension Successfully Installed">
                     </div>
                     <div class="success-note">
                         <span class="check-icon">✓</span>
