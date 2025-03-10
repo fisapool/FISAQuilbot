@@ -917,7 +917,7 @@
         .site-header {
             padding: 40px 20px;
             text-align: center;
-            background: linear-gradient(180deg, rgba(33, 150, 243, 0.1), transparent);
+            background: linear-gradient(180deg, rgba(255, 152, 0, 0.1), transparent);
         }
 
         .logo-container {
@@ -933,12 +933,6 @@
             width: 80px;
             height: 80px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(33, 150, 243, 0.3));
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05) rotate(5deg);
         }
 
         .logo-text {
@@ -950,7 +944,7 @@
             font-size: 2.8em;
             font-weight: 700;
             margin: 0;
-            background: linear-gradient(45deg, #2196F3, #64B5F6);
+            background: linear-gradient(45deg, #FF9800, #FFC107);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1032,10 +1026,37 @@
                 print-color-adjust: exact;
             }
         }
+
+        /* Remove image filters and modifications */
+        .step-image.original {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .step-image.original img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Remove any image overlays or effects */
+        .step-image::before {
+            display: none;
+        }
+
+        .step-image img {
+            filter: none;
+        }
+
+        /* Keep basic hover effect */
+        .step-image:hover img {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
-    <!-- Header with Logo -->
+    <!-- Header with Logo - Simplified -->
     <header class="site-header">
         <div class="logo-container">
             <img src="./icon.png" alt="FISA Logo" class="logo">
@@ -1154,20 +1175,8 @@
                 <div class="step-content">
                     <h3>Download and Extract</h3>
                     <p>Download this repository as a ZIP file</p>
-                    <div class="download-animation">
-                        <div class="folder-icon">
-                            <div class="folder-back"></div>
-                            <div class="folder-front"></div>
-                            <div class="zip-text">.ZIP</div>
-                            <div class="download-arrow">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 4v12m0 0l-4-4m4 4l4-4m-9 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-image">
-                        <img src="./icon (1).png" alt="Download ZIP file">
+                    <div class="step-image original">
+                        <img src="./icon.png" alt="Download ZIP file">
                     </div>
                 </div>
             </div>
@@ -1179,7 +1188,7 @@
                     <h3>Enable Developer Mode</h3>
                     <p>Toggle "Developer mode" switch in the top right corner</p>
                     <div class="step-image">
-                        <img src="docs/icon (2).png" alt="Enable Developer Mode">
+                        <img src="./icon (2).png" alt="Enable Developer Mode">
                         <div class="image-caption">Enable Developer Mode in Chrome</div>
                     </div>
                 </div>
