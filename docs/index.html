@@ -1053,6 +1053,152 @@
             transform: scale(1.02);
             transition: transform 0.3s ease;
         }
+
+        .download-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF9800, #FFC107);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+        }
+
+        .button-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        .button-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .file-size {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* Animation for download icon */
+        .download-button:hover .download-icon {
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .download-button {
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .button-content {
+                justify-content: center;
+            }
+        }
+
+        .success-note {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .check-icon {
+            color: #FF9800;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .directory-preview {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .folder-structure {
+            color: var(--text-primary);
+        }
+
+        .folder, .file {
+            padding: 4px 0;
+        }
+
+        .folder-content {
+            margin-left: 20px;
+            padding-left: 10px;
+            border-left: 1px solid rgba(255, 152, 0, 0.2);
+        }
+
+        .folder.highlight {
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 8px 0;
+        }
+
+        .select-this {
+            background: linear-gradient(45deg, #FF9800, #FFC107);
+            color: black;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .folder-icon, .file-icon {
+            margin-right: 8px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .directory-preview {
+                font-size: 0.8em;
+                padding: 15px;
+            }
+
+            .folder-content {
+                margin-left: 15px;
+                padding-left: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1174,83 +1320,85 @@
                 <div class="step-number">1</div>
                 <div class="step-content">
                     <h3>Download and Extract</h3>
-                    <p>Download this repository as a ZIP file</p>
-                    <div class="step-image original">
-                        <img src="./icon.png" alt="Download ZIP file">
-                    </div>
+                    <p>Download and extract the extension files</p>
+                    
+                    <!-- Download Button -->
+                    <a href="https://github.com/fisadev/FISAQuilbot/archive/refs/heads/main.zip" class="download-button">
+                        <div class="button-content">
+                            <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17">
+                                </path>
+                            </svg>
+                            <span class="button-text">Download ZIP</span>
+                            <span class="file-size">(2.1 MB)</span>
+                        </div>
+                    </a>
                 </div>
             </div>
 
-            <!-- Step 2 -->
-            <div class="installation-step">
+            <!-- Step 2 & 3 Combined -->
+            <div class="setup-step">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h3>Enable Developer Mode</h3>
-                    <p>Toggle "Developer mode" switch in the top right corner</p>
+                    <h3>Enable Developer Mode & Load Extension</h3>
+                    <p>1. Toggle "Developer mode" switch in top right<br>
+                       2. Click "Load unpacked" button that appears</p>
                     <div class="step-image">
-                        <img src="./icon (2).png" alt="Enable Developer Mode">
-                        <div class="image-caption">Enable Developer Mode in Chrome</div>
+                        <img src="./icon (6).png" alt="Enable Developer Mode and Load Unpacked">
                     </div>
                 </div>
             </div>
 
-            <!-- Step 3 -->
-            <div class="guide-step">
-                <div class="step-header">
-                    <div class="step-number">3</div>
-                    <div class="step-text">
-                        <h4>Load Extension</h4>
-                        <p>Click "Load unpacked" button that appears after enabling Developer mode</p>
+            <!-- Step 4: Select Extension Folder -->
+            <div class="setup-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Select Extension Folder</h3>
+                    <p>Navigate to and SELECT the <strong>extension</strong> folder from the downloaded files</p>
+                    
+                    <!-- Directory Structure Visualization -->
+                    <div class="directory-preview">
+                        <div class="folder-structure">
+                            <div class="folder root">
+                                <span class="folder-icon">📂</span>
+                                <span class="folder-name">FISAQuilbot-main</span>
+                                <div class="folder-content">
+                                    <div class="folder highlight">
+                                        <span class="folder-icon">📂</span>
+                                        <span class="folder-name">extension</span>
+                                        <span class="select-this">← SELECT THIS FOLDER</span>
+                                        <div class="folder-content">
+                                            <div class="file"><span class="file-icon">📄</span>manifest.json</div>
+                                            <div class="file"><span class="file-icon">📄</span>background.js</div>
+                                            <div class="file"><span class="file-icon">📄</span>content.js</div>
+                                            <div class="file"><span class="file-icon">🖼️</span>icon.png</div>
+                                        </div>
+                                    </div>
+                                    <div class="folder">
+                                        <span class="folder-icon">📂</span>
+                                        <span class="folder-name">docs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="step-image">
-                    <img src="./icon (3).png" alt="Load Unpacked Button">
-                    <div class="image-caption">Click Load Unpacked</div>
                 </div>
             </div>
 
-            <!-- Step 4 -->
-            <div class="guide-step">
-                <div class="step-header">
-                    <div class="step-number">4</div>
-                    <div class="step-text">
-                        <h4>Select Extension Folder</h4>
-                        <p>Navigate to and SELECT the "extension" folder from the downloaded files</p>
+            <!-- Final Step: Ready to Use -->
+            <div class="setup-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>Ready to Use</h3>
+                    <p>The extension is now installed and ready to enhance your QuillBot experience</p>
+                    <div class="step-image">
+                        <img src="./icon (2).png" alt="Extension Successfully Installed">
                     </div>
-                </div>
-                <div class="step-image">
-                    <img src="./icon (4).png" alt="Select Extension Folder">
-                    <div class="image-caption">Select the correct folder</div>
-                </div>
-            </div>
-
-            <!-- Step 5 -->
-            <div class="guide-step">
-                <div class="step-header">
-                    <div class="step-number">5</div>
-                    <div class="step-text">
-                        <h4>Verify Installation</h4>
-                        <p>Ensure the extension appears in your Chrome extensions list</p>
+                    <div class="success-note">
+                        <span class="check-icon">✓</span>
+                        <span>Installation Complete! You can now use QuillBot Premium features.</span>
                     </div>
-                </div>
-                <div class="step-image">
-                    <img src="./icon (5).png" alt="Verify Installation">
-                    <div class="image-caption">Check extension is installed</div>
-                </div>
-            </div>
-
-            <!-- Step 6 -->
-            <div class="guide-step">
-                <div class="step-header">
-                    <div class="step-number">6</div>
-                    <div class="step-text">
-                        <h4>Ready to Use</h4>
-                        <p>The extension is now ready to enhance your QuillBot experience</p>
-                    </div>
-                </div>
-                <div class="step-image">
-                    <img src="./icon (6).png" alt="Extension Ready">
-                    <div class="image-caption">Extension is ready to use</div>
                 </div>
             </div>
         </div>
