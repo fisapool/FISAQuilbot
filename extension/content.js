@@ -1,109 +1,197 @@
+javascript
 /**
- * FISAQuilbot Premium Content Script
- * Handles dynamic element hiding and UI modifications
+ * FISAQuilbot Premium Content Script v2.0
+ * Enhanced element management with dynamic detection and performance optimizations
  */
 
-// Error logging utility
-const logError = (context, error) => {
-  console.error(`FISAQuilbot Error (${context}):`, error.message);
-};
-
-// Hide advertisement and donation elements
-function hideElements() {
-  try {
-    const elementsToHide = {
-      ads: 'marquee#marqueeAds, marquee.__web-inspector-hide-shortcut__',
-      donations: 'img[src*="buymeacoffee.com"], img.__web-inspector-hide-shortcut__[alt="Buy Me A Coffee"]'
+class FISAQuilbotUI {
+  constructor() {
+    this.observers = [];
+    this.config = {
+      selectors: {
+        ads: [
+          'marquee#marqueeAds',
+          'div.ad-container',
+          'iframe[src*="ads"]',
+          'ins.adsbygoogle'
+        ],
+        donations: [
+          'img[src*="buymeacoffee.com"]',
+          '[alt*="Buy Me A Coffee"]',
+          '[data-testid="donation-banner"]'
+        ],
+        plagiarism: [
+          '[data-testid*="plagiarism"]',
+          '[href*="plagiarism-checker"]',
+          '.plagiarism-widget',
+          '.anti-plagiarism-section'
+        ]
+      },
+      mutationObserver: {
+        childList: true,
+        subtree: true,
+        attributes: false,
+        characterData: false
+      },
+      throttleDelay: 300
     };
 
-    Object.entries(elementsToHide).forEach(([type, selector]) => {
-      try {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(element => {
-          element.style.setProperty('display', 'none', 'important');
-        });
-      } catch (err) {
-        logError(`hiding ${type} elements`, err);
-      }
-    });
-  } catch (error) {
-    logError('hideElements', error);
+    this.initialize();
   }
-}
 
-// Hide plagiarism checker elements
-function hidePlagiarismChecker() {
-  try {
-    const plagiarismSelectors = [
-      '[data-testid="dashboard-product-card-plagiarism-checker-sm-md"]',
-      '.css-hey9bw[href*="plagiarism-checker"]',
-      'a[href*="plagiarism-checker"]'
-    ];
-
-    plagiarismSelectors.forEach(selector => {
-      try {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(element => {
-          element.style.display = 'none';
-        });
-      } catch (err) {
-        logError(`hiding plagiarism element (${selector})`, err);
-      }
+  // Enhanced logging with stack traces
+  logError(context, error) {
+    console.error(`[FISAQuilbot][${new Date().toISOString()}] Error in ${context}:`, {
+      message: error.message,
+      stack: error.stack,
+      errorObject: error
     });
-  } catch (error) {
-    logError('hidePlagiarismChecker', error);
   }
-}
 
-// Initialize observers for dynamic content
-function initializeObservers() {
-  try {
-    const config = { childList: true, subtree: true };
-    
-    // Observer for ads and donations
-    const elementObserver = new MutationObserver(() => {
-      try {
-        hideElements();
-      } catch (err) {
-        logError('elementObserver callback', err);
+  // Throttled function for performance
+  throttle(callback, limit) {
+    let lastCall = 0;
+    return (...args) => {
+      const now = Date.now();
+      if (now - lastCall >= limit) {
+        callback(...args);
+        lastCall = now;
       }
-    });
-
-    // Observer for plagiarism elements
-    const plagiarismObserver = new MutationObserver(() => {
-      try {
-        hidePlagiarismChecker();
-      } catch (err) {
-        logError('plagiarismObserver callback', err);
-      }
-    });
-
-    // Start observing
-    elementObserver.observe(document.body, config);
-    plagiarismObserver.observe(document.body, config);
-  } catch (error) {
-    logError('initializeObservers', error);
+    };
   }
-}
 
-// Initialize extension
-function initializeExtension() {
-  try {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        hideElements();
-        hidePlagiarismChecker();
-        initializeObservers();
+  // Universal element handler
+  handleElements(selectors, action = 'hide') {
+    try {
+      selectors.forEach(selector => {
+        try {
+          document.querySelectorAll(selector).forEach(element => {
+            try {
+              if (action === 'hide') {
+                element.classList.add('fq-hidden-element');
+                element.setAttribute('data-fq-hidden', 'true');
+              } else if (action === 'restore') {
+                element.classList.remove('fq-hidden-element');
+                element.removeAttribute('data-fq-hidden');
+              }
+            } catch (err) {
+              this.logError(`processing ${selector}`, err);
+            }
+          });
+        } catch (err) {
+          this.logError(`querySelectorAll ${selector}`, err);
+        }
       });
-    } else {
-      hideElements();
-      hidePlagiarismChecker();
-      initializeObservers();
+    } catch (error) {
+      this.logError('handleElements', error);
     }
-  } catch (error) {
-    logError('initializeExtension', error);
+  }
+
+  // Mutation observer setup
+  createObserver(targetClass) {
+    const callback = this.throttle(mutations => {
+      try {
+        mutations.forEach(mutation => {
+          if (mutation.type === 'childList') {
+            this[targetClass]();
+          }
+        });
+      } catch (error) {
+        this.logError('mutationCallback', error);
+      }
+    }, this.config.throttleDelay);
+
+    const observer = new MutationObserver(callback);
+    observer.observe(document.documentElement, this.config.mutationObserver);
+    this.observers.push(observer);
+  }
+
+  // Feature controllers
+  manageAds() {
+    this.handleElements(this.config.selectors.ads);
+  }
+
+  manageDonations() {
+    this.handleElements(this.config.selectors.donations);
+  }
+
+  managePlagiarism() {
+    this.handleElements(this.config.selectors.plagiarism);
+  }
+
+  // Initialization sequence
+  initializeFeatures() {
+    try {
+      [this.manageAds, this.manageDonations, this.managePlagiarism].forEach(fn => {
+        try {
+          fn.call(this);
+        } catch (err) {
+          this.logError('initialFeatureSetup', err);
+        }
+      });
+    } catch (error) {
+      this.logError('initializeFeatures', error);
+    }
+  }
+
+  setupObservers() {
+    try {
+      ['manageAds', 'manageDonations', 'managePlagiarism'].forEach(target => {
+        this.createObserver(target);
+      });
+    } catch (error) {
+      this.logError('setupObservers', error);
+    }
+  }
+
+  // Cleanup mechanism
+  cleanup() {
+    this.observers.forEach(observer => observer.disconnect());
+    this.observers = [];
+    this.handleElements([
+      ...this.config.selectors.ads,
+      ...this.config.selectors.donations,
+      ...this.config.selectors.plagiarism
+    ], 'restore');
+  }
+
+  // Main initialization
+  initialize() {
+    try {
+      const readyHandler = () => {
+        try {
+          // Add global styles
+          const style = document.createElement('style');
+          style.textContent = `
+            .fq-hidden-element {
+              display: none !important;
+              visibility: hidden !important;
+              opacity: 0 !important;
+              pointer-events: none !important;
+            }
+          `;
+          document.head.appendChild(style);
+
+          this.initializeFeatures();
+          this.setupObservers();
+        } catch (error) {
+          this.logError('DOMContentLoaded handler', error);
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', readyHandler);
+      } else {
+        readyHandler();
+      }
+
+      // Add cleanup handler for potential hot-reload
+      window.addEventListener('beforeunload', () => this.cleanup());
+    } catch (error) {
+      this.logError('mainInitialization', error);
+    }
   }
 }
 
-// Start the extension
-initializeExtension(); 
+// Instantiate and export for potential debugging
+window.__FISAQuilbot = new FISAQuilbotUI();
