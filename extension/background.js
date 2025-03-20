@@ -1,58 +1,45 @@
-!function() {
+javascript
+(function() {
     "use strict";
 
-    async function fetchWithTimeout(url, config) {
-        const response = await fetch(url, config);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    async function fetchWithTimeout(url, config, timeout = 10000) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+        try {
+            const response = await fetch(url, { ...config, signal: controller.signal });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return await response.text();
+        } finally {
+            clearTimeout(timeoutId);
         }
-        return await response.text();
     }
 
-    async function handleRequests(requests) {
+    async function handleRequests(requests, sendResponse) {
         const results = [];
         const errors = [];
-        
-        // Set a timeout for the entire operation
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error("Timeout")), 10000)
-        );
 
-        // Process each request
         for (const request of requests) {
             try {
-                const result = await Promise.race([fetchWithTimeout(request.url, request.config), timeoutPromise]);
-                results.push(result);
+                const data = await fetchWithTimeout(request.url, request.config);
+                results.push(data);
             } catch (error) {
-                errors.push(error.message);
-                console.error("Fetch error:", error);
+                errors.push(`[${request.url}]: ${error.message}`);
             }
         }
 
-        // Prepare the response
-        const response = {
+        sendResponse({
             success: errors.length === 0,
-            result: results.length === 1 ? results[0] : results,
+            results: results,
             errors: errors.length > 0 ? errors : undefined
-        };
-
-        this.sendResponse(response);
+        });
     }
 
-    // Listen for messages from the extension
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        const { method, params } = message;
-
-        // Set the context for the response
-        this.sender = sender;
-        this.sendResponse = sendResponse;
-        this.params = params;
-
-        if (method === "proxyFetch") {
-            handleRequests([params]).call(this);
-            return true; // Indicate that the response will be sent asynchronously
+        if (message.method === "proxyFetch") {
+            handleRequests([message.params], sendResponse);
+            return true; // Keep async response
         }
-
         sendResponse({ success: false, error: "Unknown method" });
     });
-}();
+})();
