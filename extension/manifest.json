@@ -6,14 +6,7 @@
   "icons": {
     "128": "icon.png"
   },
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "icon-16.png",
-      "48": "icon-48.png",
-      "128": "icon.png"
-    }
-  },
+  "action": {},
   "web_accessible_resources": [{
     "resources": ["quillbot.js", "inject.js"],
     "matches": ["https://quillbot.com/*"]
@@ -26,23 +19,15 @@
       "run_at": "document_start"
     },
     {
-      "matches": ["https://*/*"],
+      "matches": ["<all_urls>"],
       "css": ["styles.css"],
       "js": ["content.js"]
     }
   ],
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
-  "host_permissions": [
-    "https://quillbot.com/*"
-  ],
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
-  },
-  "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }
